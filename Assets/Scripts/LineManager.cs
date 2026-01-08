@@ -1,18 +1,21 @@
 using System.Collections;
+using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LineManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] bouncyNodes;
-    [SerializeField] GameObject[] noBounceNodes;
-    [SerializeField] GameObject[] normalNodes;
+    [SerializeField] public GameObject[] bouncyNodes;
+    [SerializeField] public GameObject[] noBounceNodes;
+    [SerializeField] public GameObject[] normalNodes;
     Camera mainCam;
     [SerializeField] GameObject line;
     public bool drawBlueLine = false;
     public bool drawRedLine = false;
     public bool drawGreenLine = false;
+    public bool delete = false;
     public Vector2 lineStartPos;
+    public Vector2 mousePos;
     InputActionAsset input;
     InputAction click;
     void OnEnable()
@@ -32,7 +35,8 @@ public class LineManager : MonoBehaviour
     {
         if (click.WasPressedThisFrame())
         {
-            Vector2 mousePos = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            delete = true;
+            mousePos = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
             for (int i = 0; i < bouncyNodes.Length; i++)
             {
@@ -40,6 +44,7 @@ public class LineManager : MonoBehaviour
                 {
                     drawBlueLine = true;
                     lineStartPos = new Vector2(bouncyNodes[i].transform.position.x, bouncyNodes[i].transform.position.y);
+                    delete = false;
                     Instantiate(line);
                     break;
                 }
@@ -50,6 +55,7 @@ public class LineManager : MonoBehaviour
                 {
                     drawRedLine = true;
                     lineStartPos = new Vector2(noBounceNodes[i].transform.position.x, noBounceNodes[i].transform.position.y);
+                    delete = false;
                     Instantiate(line);
                     break;
                 }
@@ -60,6 +66,7 @@ public class LineManager : MonoBehaviour
                 {
                     drawGreenLine = true;
                     lineStartPos = new Vector2(normalNodes[i].transform.position.x, normalNodes[i].transform.position.y);
+                    delete = false;
                     Instantiate(line);
                     break;
                 }
@@ -70,6 +77,7 @@ public class LineManager : MonoBehaviour
             drawBlueLine = false;
             drawRedLine = false;
             drawGreenLine = false;
+            delete = false;
         }
     }
 }
