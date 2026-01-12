@@ -88,12 +88,10 @@ public class LineRendererScript : MonoBehaviour
         //check if mouse is over line
         if (lm.delete)
         {
-            Ray ray = Camera.main.ViewportPointToRay(lm.mousePos);
-            RaycastHit hit;
-            Debug.Log(lm.mousePos);
-            if (Physics.Raycast(ray, out hit))
+            Vector2 ray = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            //Debug.Log(lm.mousePos);
+            if (Physics2D.Raycast(ray, -Vector3.up))
             {
-                Debug.Log("help");
                 Destroy(gameObject);
             }
         }

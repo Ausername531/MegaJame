@@ -8,6 +8,7 @@ public class LineManager : MonoBehaviour
     [SerializeField] public GameObject[] bouncyNodes;
     [SerializeField] public GameObject[] noBounceNodes;
     [SerializeField] public GameObject[] normalNodes;
+    [SerializeField] private PhysicsMaterial2D normalMat;
     Camera mainCam;
     [SerializeField] GameObject line;
     public bool drawBlueLine = false;
