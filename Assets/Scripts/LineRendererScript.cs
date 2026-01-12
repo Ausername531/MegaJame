@@ -13,6 +13,7 @@ public class LineRendererScript : MonoBehaviour
     private bool touchingRed = false;
     private bool touchingBlue = false;
     private bool touchingGreen = false;
+    private bool touchingWhite = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +32,7 @@ public class LineRendererScript : MonoBehaviour
         {
             if(lm.drawBlueLine)
             {
+                gameObject.GetComponent<Collider2D>().material = lm.bouncyMat;
                 lineRenderer.startColor = new Vector4(0, 0, 255, 1);
                 lineRenderer.endColor = new Vector4(0, 0, 255, 1);
                 lineRenderer.SetPosition(1, mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
@@ -80,7 +82,14 @@ public class LineRendererScript : MonoBehaviour
                     touchingGreen = true;
                 }
             }
-            if(!touchingBlue && !touchingGreen && !touchingRed)
+            for (int i = 0; i < lm.nodes.Length; i++)
+            {
+                if (position2 == new Vector2(lm.nodes[i].transform.position.x, lm.nodes[i].transform.position.y))
+                {
+                    touchingWhite = true;
+                }
+            }
+            if (!touchingBlue && !touchingGreen && !touchingRed && !touchingWhite)
             {
                 Destroy(gameObject);
             }
@@ -89,10 +98,14 @@ public class LineRendererScript : MonoBehaviour
         if (lm.delete)
         {
             Vector2 ray = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            //Debug.Log(lm.mousePos);
-            if (Physics2D.Raycast(ray, -Vector3.up))
+            if (Physics2D.Raycast(ray, new Vector3(0, 0, 0)))
             {
-                Destroy(gameObject);
+                RaycastHit2D hit = Physics2D.Raycast(ray, new Vector3(0, 0, 0));
+                if (hit.collider == gameObject.GetComponent<Collider2D>())
+                {
+                    Debug.Log("plonk");
+                    Destroy(gameObject);
+                }
             }
         }
     }
