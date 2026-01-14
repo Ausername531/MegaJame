@@ -20,8 +20,7 @@ public class MouseFollower : MonoBehaviour
         else
         {
             GetComponent<Collider2D>().enabled = false;
-        }
-    }
+        }    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         Debug.Log("okay");

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6741274646971948736}
   - component: {fileID: -9086974247488115055}
   m_Layer: 0
-  m_Name: Line
+  m_Name: BlueLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8c73b34710c9f0441b966ed63a02ae53, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

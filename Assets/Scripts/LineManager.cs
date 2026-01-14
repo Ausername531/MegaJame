@@ -9,14 +9,11 @@ public class LineManager : MonoBehaviour
     [SerializeField] public GameObject[] noBounceNodes;
     [SerializeField] public GameObject[] normalNodes;
     [SerializeField] public GameObject[] nodes;
-    [SerializeField] public PhysicsMaterial2D normalMat;
-    [SerializeField] public PhysicsMaterial2D noBounceMat;
-    [SerializeField] public PhysicsMaterial2D bouncyMat;
     Camera mainCam;
-    [SerializeField] GameObject line;
-    public bool drawBlueLine = false;
-    public bool drawRedLine = false;
-    public bool drawGreenLine = false;
+    [SerializeField] GameObject blueLine;
+    [SerializeField] GameObject greenLine;
+    [SerializeField] GameObject redLine;
+    public bool drawLine = false;
     public bool delete = false;
     public Vector2 lineStartPos;
     public Vector2 mousePos;
@@ -46,10 +43,10 @@ public class LineManager : MonoBehaviour
             {
                 if (mousePos == new Vector2(bouncyNodes[i].transform.position.x, bouncyNodes[i].transform.position.y))
                 {
-                    drawBlueLine = true;
+                    drawLine = true;
                     lineStartPos = new Vector2(bouncyNodes[i].transform.position.x, bouncyNodes[i].transform.position.y);
                     delete = false;
-                    Instantiate(line);
+                    Instantiate(blueLine);
                     break;
                 }
             }
@@ -57,10 +54,10 @@ public class LineManager : MonoBehaviour
             {
                 if (mousePos == new Vector2(noBounceNodes[i].transform.position.x, noBounceNodes[i].transform.position.y))
                 {
-                    drawRedLine = true;
+                    drawLine = true;
                     lineStartPos = new Vector2(noBounceNodes[i].transform.position.x, noBounceNodes[i].transform.position.y);
                     delete = false;
-                    Instantiate(line);
+                    Instantiate(redLine);
                     break;
                 }
             }
@@ -68,19 +65,17 @@ public class LineManager : MonoBehaviour
             {
                 if (mousePos == new Vector2(normalNodes[i].transform.position.x, normalNodes[i].transform.position.y))
                 {
-                    drawGreenLine = true;
+                    drawLine = true;
                     lineStartPos = new Vector2(normalNodes[i].transform.position.x, normalNodes[i].transform.position.y);
                     delete = false;
-                    Instantiate(line);
+                    Instantiate(greenLine);
                     break;
                 }
             }
         }
         if(click.WasReleasedThisFrame())
         {
-            drawBlueLine = false;
-            drawRedLine = false;
-            drawGreenLine = false;
+            drawLine = false;
             delete = false;
         }
     }

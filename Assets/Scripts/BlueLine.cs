@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LineRendererScript : MonoBehaviour
+public class BlueLine : MonoBehaviour
 {
     LineManager lm;
     Camera mainCam;
@@ -30,27 +30,11 @@ public class LineRendererScript : MonoBehaviour
     {
         if (!lockedIn)
         {
-            if(lm.drawBlueLine)
-            {
-                gameObject.GetComponent<Collider2D>().material = lm.bouncyMat;
-                lineRenderer.startColor = new Vector4(0, 0, 255, 1);
-                lineRenderer.endColor = new Vector4(0, 0, 255, 1);
-                lineRenderer.SetPosition(1, mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
-            }
-            if(lm.drawRedLine)
-            {
-                lineRenderer.startColor = new Vector4(255, 0, 0, 1);
-                lineRenderer.endColor = new Vector4(255, 0, 0, 1);
-                lineRenderer.SetPosition(1, mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
-            }
-            if(lm.drawGreenLine)
-            {
-                lineRenderer.startColor = new Vector4(0, 255, 0, 1);
-                lineRenderer.endColor = new Vector4(0, 255, 0, 1);
-                lineRenderer.SetPosition(1, mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
-            }
+            lineRenderer.startColor = new Vector4(0, 0, 255, 1);
+            lineRenderer.endColor = new Vector4(0, 0, 255, 1);
+            lineRenderer.SetPosition(1, mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
         }
-        if (!lm.drawBlueLine && !lm.drawGreenLine && !lm.drawRedLine && !lockedIn)
+        if (!lm.drawLine && !lockedIn)
         {
             lockedIn = true;
             Vector2 position2 = new Vector2(Mathf.Round(mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x), Mathf.Round(mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y));
